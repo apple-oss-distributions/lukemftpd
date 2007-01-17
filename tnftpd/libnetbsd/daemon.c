@@ -1,7 +1,8 @@
-/*	$NetBSD: pathnames.h,v 1.4 2006/09/26 06:38:38 lukem Exp $	*/
+/* $Id: daemon.c,v 1.2 2006/12/18 04:04:20 lukem Exp $ */
+/* from	NetBSD: daemon.c,v 1.9 2003/08/07 16:42:46 agc Exp */
 
-/*
- * Copyright (c) 1989, 1993
+/*-
+ * Copyright (c) 1990, 1993
  *	The Regents of the University of California.  All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,20 +28,37 @@
  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
- *
- *	@(#)pathnames.h	8.1 (Berkeley) 6/4/93
  */
 
-#ifndef	_DEFAULT_CONFDIR
-#define	_DEFAULT_CONFDIR	"/etc"
-#endif
+#include "tnftpd.h"
 
-#define	_NAME_FTPCHROOT		"ftpchroot"
-#define	_NAME_FTPDCONF		"ftpd.conf"
-#define	_NAME_FTPLOGINMESG	"motd"
-#define	_NAME_FTPUSERS		"ftpusers"
-#define	_NAME_FTPWELCOME	"ftpwelcome"
+int
+daemon(nochdir, noclose)
+	int nochdir, noclose;
+{
+	int fd;
 
-#define _PATH_CLASSPIDS		"/var/run/ftpd.pids-"
+	switch (fork()) {
+	case -1:
+		return (-1);
+	case 0:
+		break;
+	default:
+		_exit(0);
+	}
 
-#define	TMPFILE			"/tmp/ftpdXXXXXXX"
+	if (setsid() == -1)
+		return (-1);
+
+	if (!nochdir)
+		(void)chdir("/");
+
+	if (!noclose && (fd = open(_PATH_DEVNULL, O_RDWR, 0)) != -1) {
+		(void)dup2(fd, STDIN_FILENO);
+		(void)dup2(fd, STDOUT_FILENO);
+		(void)dup2(fd, STDERR_FILENO);
+		if (fd > STDERR_FILENO)
+			(void)close(fd);
+	}
+	return (0);
+}

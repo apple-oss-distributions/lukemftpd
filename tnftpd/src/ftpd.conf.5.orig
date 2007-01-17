@@ -743,7 +743,7 @@ A sample
 file.
 .El
 .Sh SEE ALSO
-.\.Xr strsuftoll 3 ,
+.Xr strsuftoll 3 ,
 .Xr ftpchroot 5 ,
 .Xr ftpusers 5 ,
 .Xr tnftpd 8

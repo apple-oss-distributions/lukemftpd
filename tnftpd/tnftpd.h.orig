@@ -483,11 +483,7 @@ const char *group_from_gid(gid_t, int);
 #define TM_YEAR_BASE	1900
 
 #if ! defined(LOGIN_NAME_MAX)
-#ifdef __APPLE__
-# define LOGIN_NAME_MAX (256)
-#else
 # define LOGIN_NAME_MAX (9)
-#endif
 #endif
 
 #if ! defined(_POSIX_LOGIN_NAME_MAX)
