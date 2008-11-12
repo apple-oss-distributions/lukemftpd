@@ -1,4 +1,4 @@
-.\"	$NetBSD: ftpd.conf.5,v 1.6 2008/09/21 14:23:39 lukem Exp $
+.\"	$NetBSD: ftpd.conf.manin,v 1.1 2008/09/21 16:21:13 lukem Exp $
 .\"	from	NetBSD: ftpd.conf.5,v 1.36 2008/09/13 02:41:52 lukem Exp
 .\"
 .\" Copyright (c) 1997-2008 The NetBSD Foundation, Inc.
@@ -368,7 +368,7 @@ is not specified, disable this.
 If
 .Ar file
 is a relative path, it will be searched for in
-.Pa /etc
+.Pa @sysconfdir@
 (which can be overridden with
 .Fl c Ar confdir ) .
 .It Sy maxfilesize Ar class Op Ar size
@@ -448,7 +448,7 @@ for more information.
 If
 .Ar file
 is a relative path, it will be searched for in
-.Pa /etc
+.Pa @sysconfdir@
 (which can be overridden with
 .Fl c Ar confdir ) .
 .It Sy notify Ar class Op Ar fileglob
@@ -724,10 +724,10 @@ modify        guest  off
 umask         guest  0707
 .Ed
 .Sh FILES
-.Bl -tag -width /usr/share/ftpd/examples/ftpd.conf -compact
-.It Pa /etc/ftpd.conf
+.Bl -tag -width @datadir@/examples/tnftpd/ftpd.conf -compact
+.It Pa @sysconfdir@/ftpd.conf
 This file.
-.It Pa /usr/share/ftpd/examples/ftpd.conf
+.It Pa @datadir@/examples/tnftpd/ftpd.conf
 A sample
 .Nm
 file.

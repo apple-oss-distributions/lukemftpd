@@ -1,4 +1,4 @@
-.\"	$NetBSD: ftpusers.5,v 1.5 2008/09/21 14:23:39 lukem Exp $
+.\"	$NetBSD: ftpusers.manin,v 1.1 2008/09/21 16:21:13 lukem Exp $
 .\"	from	NetBSD: ftpusers.5,v 1.17 2008/09/13 02:41:52 lukem Exp
 .\"
 .\" Copyright (c) 1997-2008 The NetBSD Foundation, Inc.
@@ -110,7 +110,7 @@ is not given, it defaults to one of the following:
 .Bl -tag -width "chroot" -offset indent
 .It Sy chroot
 If there is a match in
-.Sx /etc/ftpchroot
+.Sx @sysconfdir@/ftpchroot
 for the user.
 .It Sy guest
 If the user name is
@@ -137,11 +137,11 @@ have access, so if you deny all users by default, you will need to add both
 and
 .Dq "ftp allow"
 to
-.Pa /etc/ftpusers
+.Pa @sysconfdir@/ftpusers
 in order to allow guest logins.
-.Ss /etc/ftpchroot
+.Ss @sysconfdir@/ftpchroot
 The file
-.Pa /etc/ftpchroot
+.Pa @sysconfdir@/ftpchroot
 is used to determine which users will have their session's root directory
 changed (using
 .Xr chroot 2 ) ,
@@ -161,14 +161,14 @@ If there's a positive match, the session's root directory is changed.
 No further comparisons are attempted after the first successful match.
 This syntax is backward-compatible with the old syntax.
 .Sh FILES
-.Bl -tag -width /usr/share/ftpd/examples/ftpusers -compact
-.It Pa /etc/ftpchroot
+.Bl -tag -width @datadir@/examples/tnftpd/ftpusers -compact
+.It Pa @sysconfdir@/ftpchroot
 List of normal users who should have their ftp session's root directory
 changed by using
 .Xr chroot 2 .
-.It Pa /etc/ftpusers
+.It Pa @sysconfdir@/ftpusers
 This file.
-.It Pa /usr/share/ftpd/examples/ftpusers
+.It Pa @datadir@/examples/tnftpd/ftpusers
 A sample
 .Nm
 file.
